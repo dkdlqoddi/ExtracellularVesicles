@@ -3,7 +3,7 @@
 `Code/`의 노트북 01~08과 `Code/Appendix/`의 부록 노트북·스크립트가 만드는 결과 파일을 정리한 문서입니다.
 
 - 파일로 저장되는 결과는 23개, 약 319 MB입니다.
-- 그 밖의 그림과 표는 노트북 안에만 저장됩니다.
+- 그 밖의 그림과 표는 별도 파일 없이 노트북 출력으로 저장됩니다. 그림까지 한 페이지로 보려면 [RESULTS.html](RESULTS.html)을 내려받아 브라우저로 여세요(GitHub에서는 HTML이 소스로만 보입니다).
 - 노트북들이 서로의 결과를 정해진 경로에서 읽으므로 파일 위치를 옮기면 안 됩니다.
 
 ## 한눈에 보기
@@ -130,7 +130,7 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
 | [Appendix/EVpedia](Code/Appendix/EVpedia.ipynb) | 3 | EVpedia 비교 벤 다이어그램 2개, 그래프 1개 |
 | [Appendix/RandomModel](Code/Appendix/RandomModel.ipynb) | 2 | 무작위 모델의 성능과 특징 중요도 |
 
-08의 SHAP 그림은 JavaScript로 그려지기 때문에 GitHub 미리보기에서는 보이지 않습니다. Jupyter에서 열어야 보입니다.
+08의 SHAP 그림은 JavaScript로 그려지기 때문에 GitHub 미리보기에서는 보이지 않습니다. Jupyter나 RESULTS.html에서 볼 수 있습니다.
 
 ## 재실행 비교
 
@@ -144,7 +144,7 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
 | 트리 동일, 바이트만 다름 | 6 | 1,000개 트리와 예측 확률이 원본과 같고, 저장된 pickle 바이트만 다름 |
 | 글꼴만 다름 | 1 | 그림 내용은 같고 글꼴만 다름 |
 
-노트북에 저장된 텍스트 출력(단백질 수, p-value, 성능 지표 등)도 빈 줄 차이를 빼면 원본과 같았습니다.
+노트북에 저장된 텍스트 출력(단백질 수, p-value, 특징 중요도 표 등)도 빈 줄 차이를 빼면 원본과 같았습니다.
 
 ## 결과물이 아닌 파일
 
