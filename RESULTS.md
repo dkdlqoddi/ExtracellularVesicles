@@ -3,7 +3,8 @@
 `Code/`의 노트북 01~08과 `Code/Appendix/`의 부록 노트북·스크립트가 만드는 결과 파일을 정리한 문서입니다.
 
 - 파일로 저장되는 결과는 23개, 약 319 MB입니다.
-- 그 밖의 그림과 표는 별도 파일 없이 노트북 출력으로 저장됩니다. 그림까지 한 페이지로 보려면 [RESULTS.html](RESULTS.html)을 내려받아 브라우저로 여세요(GitHub에서는 HTML이 소스로만 보입니다).
+- 그 밖의 그림과 표는 노트북 출력으로 저장됩니다. 노트북 그림은 [`Results/figures/`](Results/figures/)에 파일로도 꺼내 두었습니다.
+- 그림까지 한 페이지로 보려면 [RESULTS.html](RESULTS.html)을 내려받아 브라우저로 여세요(GitHub에서는 HTML이 소스로만 보입니다).
 - 노트북들이 서로의 결과를 정해진 경로에서 읽으므로 파일 위치를 옮기면 안 됩니다.
 
 ## 한눈에 보기
@@ -37,12 +38,14 @@ ExtracellularVesicles/
 │   ├── EV_RF_model_MS_filter_seq.pkl                30M  05  트리 동일, 바이트만 다름
 │   ├── EV_RF_model_MS_iso_filter_seq.pkl            32M  05  트리 동일, 바이트만 다름
 │   └── EV_scaler_MS_iso_filter.pkl                 2.1K  05  동일
-└── Code/
-    ├── 01~08_*.ipynb                                     ── 그림·표는 노트북 안에 저장 (아래 '노트북 안에만 있는 결과')
-    └── Appendix/
-        ├── EVpedia.ipynb, RandomModel.ipynb              ── 그림은 노트북 안에 저장
-        ├── FI_Random_model.csv                     2.9K  RandomModel.ipynb   동일
-        └── Combined_AUC_filter_crossval.png        325K  RandomForest_CV.py  글꼴만 다름
+├── Code/
+│   ├── 01~08_*.ipynb                                     ── 그림·표는 노트북 안에 저장 (아래 '노트북 그림')
+│   ├── Appendix/
+│   │   ├── EVpedia.ipynb, RandomModel.ipynb              ── 그림은 노트북 안에 저장
+│   │   ├── FI_Random_model.csv                     2.9K  RandomModel.ipynb   동일
+│   │   └── Combined_AUC_filter_crossval.png        325K  RandomForest_CV.py  글꼴만 다름
+│   └── Reproduction/                                     ── 재실행 비교·결과 정리 스크립트
+└── Results/figures/                                      ── 노트북 그림 파일 (PNG 38개, SHAP HTML 4개)
 ```
 
 ## 파일 설명
@@ -113,9 +116,9 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
 | [FI_Random_model.csv](Code/Appendix/FI_Random_model.csv) | RandomModel.ipynb | 라벨을 섞어 학습한 무작위 모델의 특징 중요도(93개). 06이 학습 모델과 비교할 때 읽음 |
 | [Combined_AUC_filter_crossval.png](Code/Appendix/Combined_AUC_filter_crossval.png) | RandomForest_CV.py | 데이터셋 3종 × (전체 특징 / 서열 기반 특징)의 5-fold 교차검증 ROC 곡선과 AUC |
 
-## 노트북 안에만 있는 결과
+## 노트북 그림
 
-아래 그림과 표는 별도 파일로 저장되지 않고 노트북 출력으로만 남아 있습니다.
+아래 그림과 표는 노트북 출력에 저장돼 있습니다. 그림은 [`Results/figures/`](Results/figures/)에 단계별 폴더로 꺼내 두었습니다. PNG 38개와 SHAP HTML 4개이고, 폴더의 README에서 한눈에 볼 수 있습니다.
 
 | 노트북 | 그림 | 내용 |
 |---|---:|---|
@@ -130,7 +133,7 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
 | [Appendix/EVpedia](Code/Appendix/EVpedia.ipynb) | 3 | EVpedia 비교 벤 다이어그램 2개, 그래프 1개 |
 | [Appendix/RandomModel](Code/Appendix/RandomModel.ipynb) | 2 | 무작위 모델의 성능과 특징 중요도 |
 
-08의 SHAP 그림은 JavaScript로 그려지기 때문에 GitHub 미리보기에서는 보이지 않습니다. Jupyter나 RESULTS.html에서 볼 수 있습니다.
+08의 SHAP 그림은 JavaScript로 그려지기 때문에 GitHub 미리보기에서는 보이지 않습니다. Jupyter, RESULTS.html, 또는 `Results/figures/08_CaseStudy/`의 HTML 파일을 브라우저로 열면 볼 수 있습니다.
 
 ## 재실행 비교
 
@@ -164,13 +167,9 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
   - scikit-learn 1.3 이상은 `Models/`의 pickle을 열지 못합니다.
   - scipy 1.7부터 `mannwhitneyu`의 기본값이 양측 검정으로 바뀌어, 04의 p-value가 원본(단측 값)과 달라집니다.
   - 최신 numba는 numpy 1.22 이상이 필요해서, numba를 0.56.4로 고정해야 shap을 불러올 수 있습니다.
-- 경로: 노트북은 `Data/raw`처럼 소문자 경로를 쓰지만 실제 폴더 이름은 대문자로 시작합니다(Windows에서 작성됨). Linux에서는 심볼릭 링크를 만들어야 합니다.
-
-  ```bash
-  cd Data
-  ln -s Raw raw; ln -s Curated curated; ln -s Training training; ln -s Features features; ln -s Validation validation
-  ln -s Raw Validation/raw; ln -s UniProt Features/Uniprot
-  ```
+- 경로: 노트북은 `Data/raw`처럼 소문자 경로를 쓰지만 실제 폴더 이름은 대문자로 시작합니다(Windows에서 작성됨). 그래서 소문자 이름의 심볼릭 링크 7개를 저장소에 넣어 두었고, Linux에서는 따로 할 일이 없습니다.
+  - 링크: `Data/raw` → `Raw`, `Data/curated` → `Curated`, `Data/training` → `Training`, `Data/features` → `Features`, `Data/validation` → `Validation`, `Data/Validation/raw` → `Raw`, `Data/Features/Uniprot` → `UniProt`
+  - Windows·macOS처럼 대소문자를 구분하지 않는 파일 시스템에서는 이 링크와 원래 폴더의 이름이 겹칩니다. 그래서 checkout할 때 이름 충돌 경고가 나고, 링크가 만들어지지 않아 `git status`에 변경으로 보일 수 있습니다.
 
 - 02 수정: PROSITE 파일 목록을 정렬하는 수정(커밋 `a9d938c`)이 있어야 Linux에서도 특징 열 순서가 원본과 같아지고, 모델이 원본과 똑같이 학습됩니다.
 - 실행 순서: 01 → 02 → 03 → 04 → `Appendix/RandomModel` → 05 → 06 → 07 → 08. `Appendix/EVpedia`는 05 다음, `Appendix/RandomForest_CV.py`는 03 다음이면 언제 실행해도 됩니다. 노트북은 자기 폴더에서 실행해야 경로가 맞습니다.
@@ -179,3 +178,8 @@ with open("Models/EV_scaler_MS_iso_filter.pkl", "rb") as f:
   (cd Code && jupyter nbconvert --to notebook --execute --inplace 01_DataCuration.ipynb)
   (cd Code/Appendix && MPLBACKEND=Agg python RandomForest_CV.py)
   ```
+
+- 확인용 스크립트: [`Code/Reproduction/`](Code/Reproduction/)에 이 비교와 결과 정리에 쓴 스크립트가 있습니다. 위 환경의 python으로 저장소 어디에서든 실행합니다.
+  - `compare_nb.py`: 노트북 10개의 텍스트 출력을 저자 원본(커밋 `0ddfa23`)과 셀 단위로 비교합니다.
+  - `compare_models.py`: 모델 6개와 스케일러를 원본과 비교합니다(트리 구조, 분기값, 예측 확률).
+  - `make_results_html.py`: RESULTS.html과 `Results/figures/`를 다시 만듭니다.
